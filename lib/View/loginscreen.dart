@@ -1,12 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Constants.dart';
 import 'package:flutter_application_1/Controller/AccountController.dart';
+import 'package:flutter_application_1/routes.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
-  AccountController accountController = Get.find();
+  LoginScreen({super.key, required this.accountController});
+  AccountController accountController;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +97,10 @@ class LoginScreen extends StatelessWidget {
                               style: TextStyle(color: Colors.white),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, Routes.createAccount);
+                              },
                               child: const Text(
                                 "Sign up",
                                 style: TextStyle(
@@ -131,13 +136,13 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(
                           height: 50,
                         ),
-                        socialMediaButton(
+                        Constants.socialMediaButton(
                             'assets/Gmail.png', () {}, 'Continue with Google'),
                         const SizedBox(
                           height: 10,
                         ),
-                        socialMediaButton('assets/Facebook.png', () {},
-                            'Continue with Facebook'),
+                        Constants.socialMediaButton('assets/Facebook.png',
+                            () {}, 'Continue with Facebook'),
                       ],
                     ),
                   ),
@@ -167,24 +172,4 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget socialMediaButton(String image, Function() function, String text) =>
-      GestureDetector(
-        onTap: function,
-        child: Container(
-          height: 45,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-          ),
-          child: Row(
-            children: [
-              const SizedBox(width: 10),
-              Image.asset(image),
-              const SizedBox(width: 5),
-              Text(text),
-            ],
-          ),
-        ),
-      );
 }

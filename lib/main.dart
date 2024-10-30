@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Controller/AccountController.dart';
+import 'package:flutter_application_1/View/createaccount.dart';
 import 'package:flutter_application_1/View/loginscreen.dart';
 import 'package:flutter_application_1/routes.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late AccountController accountController;
   @override
   void initState() {
     super.initState();
@@ -23,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   initialize() {
-    Get.put(AccountController());
+    accountController = Get.put(AccountController());
   }
 
   @override
@@ -35,7 +37,14 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       initialRoute: Routes.loginScreen,
-      routes: {Routes.loginScreen: (context) => LoginScreen()},
+      routes: {
+        Routes.loginScreen: (context) => LoginScreen(
+              accountController: accountController,
+            ),
+        Routes.createAccount: (context) => CreateAccount(
+              accountController: accountController,
+            ),
+      },
     );
   }
 }
