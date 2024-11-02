@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/API/SAccount.dart';
+import 'package:flutter_application_1/API/STest.dart';
 import 'package:flutter_application_1/Model/AccountModel.dart';
 import 'package:flutter_application_1/Model/LoginModel.dart';
+import 'package:flutter_application_1/Model/WeatherModel.dart';
+import 'package:flutter_application_1/routes.dart';
+import 'package:flutter_application_1/token.dart';
 import 'package:get/get.dart';
 
 class AccountController extends GetxController {
@@ -13,6 +17,7 @@ class AccountController extends GetxController {
   TextEditingController lastNameController = TextEditingController();
   bool isPasswordVisible = true;
   bool isLoading = false;
+  List<WeatherModel> weatherList = [];
 
   void toggleVisiblity() {
     isPasswordVisible = !isPasswordVisible;
@@ -39,19 +44,27 @@ class AccountController extends GetxController {
       (value) async {
         isLoading = true;
         update();
-        await Future.delayed(const Duration(seconds: 1)).whenComplete(
+
+        await Future.delayed(const Duration(seconds: 2)).whenComplete(
           () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                duration: const Duration(seconds: 1),
-                backgroundColor: value['status'] ? Colors.green : Colors.red,
-                content: Text('${value['message']}'),
-              ),
-            );
+            if (!value['status']) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 1),
+                  backgroundColor: value['status'] ? Colors.green : Colors.red,
+                  content: Text('${value['message']}'),
+                ),
+              );
+            }
             isLoading = false;
             update();
           },
         );
+        if (value['status']) {
+          clearTextFields();
+          Navigator.pushNamedAndRemoveUntil(
+              context, Routes.homeScreen, (route) => false);
+        }
       },
     );
   }
@@ -109,5 +122,27 @@ class AccountController extends GetxController {
     passwordController.clear();
     firstNameController.clear();
     lastNameController.clear();
+  }
+
+  Future<void> getWeatherData(BuildContext context) async {
+    await STest.getWeatherData().then((value) async {
+      if (value['status']) {
+        weatherList = value['message'];
+        update();
+      }
+
+      if (value['message'] == 'Unauthorized') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: const Duration(seconds: 1),
+            backgroundColor: Colors.red,
+            content: Text('Session expired'),
+          ),
+        );
+        await Future.delayed(Duration(seconds: 1)).whenComplete(() {
+          Navigator.pushNamed(context, Routes.loadingScreen);
+        });
+      }
+    });
   }
 }

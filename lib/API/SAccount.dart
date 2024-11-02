@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_application_1/Model/AccountModel.dart';
 import 'package:flutter_application_1/Model/LoginModel.dart';
+import 'package:flutter_application_1/flutter_storage.dart';
 import 'package:http/http.dart' as http;
 
 class SAccount {
@@ -9,7 +10,7 @@ class SAccount {
     Map<String, dynamic> result;
 
     try {
-      String url = 'http://10.0.2.2:5087/api/Account/login';
+      String url = 'http://10.0.2.2:5087/api/auth/login';
 
       final response = await http.post(Uri.parse(url),
           headers: {'Content-Type': 'application/json'},
@@ -18,6 +19,10 @@ class SAccount {
       dynamic res = json.decode(response.body);
       if (response.statusCode == 200) {
         result = {'status': res['status'], 'message': res['message']};
+        await FlutterStorage.storage
+            .write(key: "accessToken", value: res['accessToken']);
+        await FlutterStorage.storage
+            .write(key: "refreshToken", value: res['refreshToken']);
       } else {
         result = {'status': false, 'message': 'Check your internet connection'};
       }

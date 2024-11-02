@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Controller/AccountController.dart';
 import 'package:flutter_application_1/View/createaccount.dart';
+import 'package:flutter_application_1/View/homescreen.dart';
+import 'package:flutter_application_1/View/loadingscreen.dart';
 import 'package:flutter_application_1/View/loginscreen.dart';
 import 'package:flutter_application_1/routes.dart';
 import 'package:get/get.dart';
@@ -44,6 +46,11 @@ class _MyAppState extends State<MyApp> {
         Routes.createAccount: (context) => CreateAccount(
               accountController: accountController,
             ),
+        Routes.homeScreen: (context) => HomeScreen(
+              accountController: accountController,
+            ),
+        Routes.loadingScreen: (context) =>
+            LoadingScreen(accountController: accountController),
       },
     );
   }

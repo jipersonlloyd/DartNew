@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/API/STest.dart';
 import 'package:flutter_application_1/Constants.dart';
 import 'package:flutter_application_1/Controller/AccountController.dart';
 import 'package:flutter_application_1/routes.dart';
@@ -114,9 +115,8 @@ class LoginScreen extends StatelessWidget {
                           ],
                         ),
                         GestureDetector(
-                          onTap: () async {
-                            await accountController.login(context);
-                          },
+                          onTap: () async =>
+                              await accountController.login(context),
                           child: Container(
                             height: 45,
                             decoration: BoxDecoration(
