@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/API/SRefreshToken.dart';
-import 'package:flutter_application_1/API/STest.dart';
 import 'package:flutter_application_1/Controller/AccountController.dart';
-import 'package:flutter_application_1/Model/WeatherModel.dart';
 import 'package:flutter_application_1/routes.dart';
-import 'package:flutter_application_1/token.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 class HomeScreen extends StatelessWidget {

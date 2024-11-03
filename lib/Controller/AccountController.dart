@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/API/SAccount.dart';
 import 'package:flutter_application_1/API/STest.dart';
 import 'package:flutter_application_1/Model/AccountModel.dart';
 import 'package:flutter_application_1/Model/LoginModel.dart';
 import 'package:flutter_application_1/Model/WeatherModel.dart';
 import 'package:flutter_application_1/routes.dart';
-import 'package:flutter_application_1/token.dart';
 import 'package:get/get.dart';
 
 class AccountController extends GetxController {

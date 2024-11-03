@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/API/SRefreshToken.dart';
 import 'package:flutter_application_1/Controller/AccountController.dart';
@@ -21,6 +19,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void initialize() async {
+    await Future.delayed(Duration(seconds: 5));
     await SRefreshToken.getAccessToken().then((value) {
       if (value['status']) {
         Navigator.pushNamedAndRemoveUntil(

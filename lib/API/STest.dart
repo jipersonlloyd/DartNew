@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_application_1/Model/WeatherModel.dart';
-import 'package:flutter_application_1/flutter_storage.dart';
 import 'package:flutter_application_1/token.dart';
-import 'package:get/utils.dart';
 import 'package:http/http.dart' as http;
 
 class STest {
